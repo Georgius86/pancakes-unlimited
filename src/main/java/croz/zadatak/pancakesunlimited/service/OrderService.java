@@ -33,7 +33,7 @@ public class OrderService {
         // validate each pancake in the order
         for (Pancake pancake : order.getPancakes()) {
             if (!isValidPancake(pancake)) {
-                throw new IllegalArgumentException("Invalid pancake: " + pancake.getName());
+                throw new IllegalArgumentException("Invalid pancake: " + pancake.getName() + ". Please add at least base and one topping!");
             }
         }
 
@@ -60,6 +60,8 @@ public class OrderService {
             Order updatedOrder = existingOrder.get();
             updatedOrder.setOrderNumber(order.getOrderNumber());
             updatedOrder.setPancakes(order.getPancakes());
+            updatedOrder.setDescription(order.getDescription());
+            updatedOrder.setOrderTime(order.getOrderTime());
             return Optional.of(orderRepository.save(updatedOrder));
         }
         return Optional.empty();
