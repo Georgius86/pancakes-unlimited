@@ -16,14 +16,15 @@ public class Ingredient {
 
     private BigDecimal price;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // specifies that the value of this field will be persisted as a string
     private IngredientCategory category;
 
     // constructors, getters and setters
 
     protected Ingredient() {
+        // a no-argument constructor is required by JPA
     }
-
+    // constructor with arguments
     public Ingredient(java.lang.Long id, java.lang.String name, BigDecimal price, IngredientCategory category) {
         this.id = id;
         this.name = name;
@@ -31,7 +32,7 @@ public class Ingredient {
         this.category = category;
     }
 
-
+    // getters and setters for the private fields
 
     public Long getId() {
         return id;

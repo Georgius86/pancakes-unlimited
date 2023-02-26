@@ -17,6 +17,10 @@ public class Order {
     private String orderNumber;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+     /*JPA annotation used to define a many-to-many relationship between two entities.
+    In this case, Pancake entity has a many-to-many relationship with Order entity,
+    which means that a pancake can have many orders and an order can have many pancakes.
+     */
     private List<Pancake> pancakes = new ArrayList<>();
 
 
@@ -28,8 +32,9 @@ public class Order {
     // constructors, getters and setters
 
     protected Order() {
+        // a no-argument constructor is required by JPA
     }
-
+    // constructor with arguments
     public Order(String orderNumber, List<Pancake> pancakes, String description, LocalDateTime orderTime) {
         this.orderNumber = orderNumber;
         this.pancakes = pancakes;

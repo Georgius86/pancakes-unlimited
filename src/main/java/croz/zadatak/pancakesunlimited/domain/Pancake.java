@@ -14,20 +14,25 @@ public class Pancake {
     private String name;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*JPA annotation used to define a many-to-many relationship between two entities.
+    In this case, Pancake entity has a many-to-many relationship with Ingredient entity,
+    which means that a pancake can have many ingredients and an ingredient can be used in many pancakes.
+     */
     private Set<Ingredient> ingredients = new HashSet<>();
 
     // constructors, getters and setters
 
 
     protected Pancake() {
+        // a no-argument constructor is required by JPA
     }
-
+    // constructor with arguments
     public Pancake(java.lang.Long id, java.lang.String name, Set<Ingredient> ingredients) {
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;
     }
-
+    // getters and setters for the private fields
     public Long getId() {
         return id;
     }
