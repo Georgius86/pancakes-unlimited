@@ -18,8 +18,8 @@ public class Order {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
      /*JPA annotation used to define a many-to-many relationship between two entities.
-    In this case, Pancake entity has a many-to-many relationship with Order entity,
-    which means that a pancake can have many orders and an order can have many pancakes.
+    In this case, Order entity has many-to-many relationship with Pancake entity,
+    which means that one pancake can have many orders and an order can have many pancakes.
      */
     private List<Pancake> pancakes = new ArrayList<>();
 
