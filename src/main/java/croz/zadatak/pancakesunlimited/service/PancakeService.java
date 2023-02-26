@@ -36,9 +36,7 @@ public class PancakeService {
         for (Ingredient ingredient : pancake.getIngredients()) {
             if (ingredient.getId() != null) {
                 Optional<Ingredient> existingIngredient = ingredientRepository.findById(ingredient.getId());
-                if (existingIngredient.isPresent()) {
-                    ingredients.add(existingIngredient.get());
-                }
+                existingIngredient.ifPresent(ingredients::add);
             }
             else {
                 ingredients.add(ingredient);
