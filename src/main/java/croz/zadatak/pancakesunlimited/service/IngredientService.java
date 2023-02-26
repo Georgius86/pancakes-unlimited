@@ -34,6 +34,8 @@ public class IngredientService {
             // update the existing ingredient with new values
             Ingredient updatedIngredient = existingIngredient.get();
             updatedIngredient.setName(ingredient.getName());
+            updatedIngredient.setPrice(ingredient.getPrice());
+            updatedIngredient.setCategory(ingredient.getCategory());
             return Optional.of(ingredientRepository.save(updatedIngredient));
         }
         return Optional.empty();
