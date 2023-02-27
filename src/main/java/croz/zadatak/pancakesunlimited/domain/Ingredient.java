@@ -19,17 +19,19 @@ public class Ingredient {
     @Enumerated(EnumType.STRING) // specifies that the value of this field will be persisted as a string
     private IngredientCategory category;
 
+    private boolean isHealthy;
     // constructors, getters and setters
 
     protected Ingredient() {
         // a no-argument constructor is required by JPA
     }
     // constructor with arguments
-    public Ingredient(java.lang.Long id, java.lang.String name, BigDecimal price, IngredientCategory category) {
+    public Ingredient(java.lang.Long id, java.lang.String name, BigDecimal price, IngredientCategory category, boolean isHealthy) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.category = category;
+        this.isHealthy = isHealthy;
     }
 
     // getters and setters for the private fields
@@ -64,5 +66,13 @@ public class Ingredient {
 
     public void setCategory(IngredientCategory category) {
         this.category = category;
+    }
+
+    public boolean isHealthy() {
+        return isHealthy;
+    }
+
+    public void setHealthy(boolean healthy) {
+        isHealthy = healthy;
     }
 }
