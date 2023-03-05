@@ -15,7 +15,8 @@ public class Ingredient {
     private String name;
 
     private BigDecimal price;
-
+    @ManyToOne
+    @JoinColumn(name = "category")
     @Enumerated(EnumType.STRING) // specifies that the value of this field will be persisted as a string
     private IngredientCategory category;
 

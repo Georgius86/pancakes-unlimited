@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="createTable" author="admin">
+        <!-- Create ingredients table -->
+        <createTable tableName="ingredients">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_healthy" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="ingredient_category">
+            <column name="id" type="BIGINT" autoIncrement="false">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category_name" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <!-- Create pancakes table -->
+        <createTable tableName="pancakes">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ingredients" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Create pancake_ingredients table for many-to-many relationship -->
+        <createTable tableName="pancake_ingredients">
+        <column name="pancake_id" type="BIGINT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="ingredient_id" type="BIGINT" >
+            <constraints nullable="false"/>
+        </column>
+
+    </createTable>
+        <!-- Create orders table -->
+        <createTable tableName="orders">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Create order_pancakes table for many-to-many relationship -->
+        <createTable tableName="order_pancakes">
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pancake_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="addPancakeIngredientRelationship" author="admin">
+        <addForeignKeyConstraint baseColumnNames="pancake_id" baseTableName="pancake_ingredients"
+                                 constraintName="fk_pancake_ingredient_pancake_id"
+                                 referencedColumnNames="id" referencedTableName="pancakes"/>
+        <addForeignKeyConstraint baseColumnNames="ingredient_id" baseTableName="pancake_ingredients"
+                                 constraintName="fk_pancake_ingredient_ingredient_id"
+                                 referencedColumnNames="id" referencedTableName="ingredients"/>
+    </changeSet>
+    <changeSet id="addIngredientCategoryForeignKey" author="admin">
+        <addForeignKeyConstraint baseColumnNames="category" baseTableName="ingredients"
+                                 constraintName="fk_ingredient_category"
+                                 referencedColumnNames="id" referencedTableName="ingredient_category"/>
+    </changeSet>
+    <changeSet id="addOrderPancakeRelationship" author="admin">
+        <addForeignKeyConstraint baseColumnNames="order_id" baseTableName="order_pancakes"
+                                 constraintName="fk_order_pancake_order_id"
+                                 referencedColumnNames="id" referencedTableName="orders"/>
+        <addForeignKeyConstraint baseColumnNames="pancake_id" baseTableName="order_pancakes"
+                                 constraintName="fk_order_pancake_pancake_id"
+                                 referencedColumnNames="id" referencedTableName="pancakes"/>
+    </changeSet>
+
+</databaseChangeLog>
